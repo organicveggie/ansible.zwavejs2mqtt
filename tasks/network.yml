@@ -1,0 +1,12 @@
+---
+- name: "Create Docker network"
+  community.docker.docker_network:
+    name: "{{ zwavejsgui_docker_network }}"
+    driver: "{{ zwavejsgui_docker_network_driver }}"
+    enable_ipv6: "{{ zwavejsgui_docker_network_enable_ipv6 }}"
+    internal: "{{ zwavejsgui_docker_network_internal }}"
+    scope: "{{ zwavejsgui_docker_network_scope }}"
+    ipam_config:
+      - subnet: "{{ zwavejsgui_docker_network_subnet }}"
+        gateway: "{{ zwavejsgui_docker_network_gateway }}"
+  when: "zwavejsgui_docker_network_create"

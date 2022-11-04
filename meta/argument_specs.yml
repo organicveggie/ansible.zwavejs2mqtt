@@ -1,0 +1,27 @@
+---
+argument_specs:
+  main:
+    short_description: "Install zwavejsgui on Docker."
+    description:
+      - "The main entry point does everything."
+
+    options:
+      zwavejsgui_docker_timezone:
+        type: "str"
+        default: "America/New_York"
+        description: |
+          Timezone code for the container. Timezone codes can be found at:
+          https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+
+      zwavejsgui_docker_device:
+        type: "str"
+        default: "/dev/serial/by-id/usb-1234_5678-ge11"
+        description: |
+          ZWave serial device to attach to the Docker container. Note: Do not use /dev/ttyUSBX
+          serial devices, as those mappings can change over time. Instead, use the
+          /dev/serial/by-id/X serial device for your Z-Wave stick.
+
+          Example:
+
+            $ ls -al /dev/serial/by-id/
+            lrwxrwxrwx 1 root root 13 Sep  6 18:57 usb-1234_5678-ge11 -> ../../ttyACM0

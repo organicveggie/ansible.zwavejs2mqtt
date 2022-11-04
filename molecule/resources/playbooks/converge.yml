@@ -1,0 +1,56 @@
+---
+- name: "Converge setup"
+  hosts: "all"
+  become: true
+
+  vars:
+    pip_install_packages:
+      - name: "docker"
+
+  pre_tasks:
+    - name: "Update apt cache"
+      ansible.builtin.apt:
+        cache_valid_time: 600
+        update_cache: "yes"
+      when: "ansible_os_family == 'Debian'"
+
+    - name: "Upgrade LXC"
+      ansible.builtin.dnf:
+        name: "lxc,lxc-templates,lxc-extra"
+        state: "latest"
+        update_cache: "yes"
+        update_only: "yes"
+      when: "ansible_os_family == 'Fedora'"
+
+  roles:
+    - "geerlingguy.pip"
+    - "geerlingguy.docker"
+
+- name: "Converge execution"
+  hosts: "all"
+  become: true
+
+  vars:
+    zwavejsgui_docker_network_create: true
+    zwavejsgui_docker_device: "/dev/ttyVSP1"
+
+  pre_tasks:
+    - name: Install socat
+      ansible.builtin.package:
+        name: socat
+        state: present
+
+    - name: Copy socat virtual serial port service definition
+      ansible.builtin.copy:
+        src: "../socat.service"
+        dest: "/etc/systemd/system/socat-vsp.service"
+        mode: "0644"
+
+    - name: Start socat vsp
+      ansible.builtin.systemd:
+        name: socat-vsp
+        state: started
+        daemon_reload: true
+
+  roles:
+    - "organicveggie.zwavejsgui"

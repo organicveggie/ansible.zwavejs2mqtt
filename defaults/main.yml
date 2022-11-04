@@ -44,7 +44,7 @@ zwavejsgui_docker_cpus: "1"
 zwavejsgui_docker_memory: "512M"
 
 #####
-# Docker volumes and folders.
+# Docker volumes and folders
 #####
 
 # Create and use Docker volumes for storing data. True creates volumes and attaches them to the
@@ -55,7 +55,7 @@ zwavejsgui_docker_use_volumes: true
 # [zwavejsgui_docker_use_volumes] is true.
 zwavejsgui_docker_volume_name: "zwavejsqui"
 
-# Directory on filesystem to use for storing data files.Only used when
+# Directory on filesystem to use for storing data files. Only used when
 # [zwavejsgui_docker_use_volumes] is false.
 zwavejsgui_docker_data_dir: "/var/lib/zwavejsqui"
 

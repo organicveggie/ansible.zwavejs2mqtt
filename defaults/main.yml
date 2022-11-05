@@ -53,11 +53,11 @@ zwavejsgui_docker_use_volumes: true
 
 # Name of the Docker volume to create to store data files. Only used when
 # [zwavejsgui_docker_use_volumes] is true.
-zwavejsgui_docker_volume_name: "zwavejsqui"
+zwavejsgui_docker_volume_name: "zwavejsui"
 
 # Directory on filesystem to use for storing data files. Only used when
 # [zwavejsgui_docker_use_volumes] is false.
-zwavejsgui_docker_data_dir: "/var/lib/zwavejsqui"
+zwavejsgui_docker_data_dir: "/var/lib/zwavejsui"
 
 #####
 # Docker networks

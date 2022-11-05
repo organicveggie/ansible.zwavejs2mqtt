@@ -6,7 +6,7 @@
 
   vars:
     zwavejsgui_docker_name: "zwave-js-ui"
-    zwavejsgui_docker_volume_name: "zwavejsqui"
+    zwavejsgui_docker_volume_name: "zwavejsui"
     zwavejsgui_docker_network: "zwave-js-ui"
 
   tasks:

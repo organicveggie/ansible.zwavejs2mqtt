@@ -27,8 +27,6 @@ provisioner:
   env:
     ANSIBLE_COLLECTIONS_PATH: "../../collections"
     ANSIBLE_ROLES_PATH: "../../roles"
-  playbooks:
-    converge: "../resources/playbooks/converge.yml"
 
 verifier:
   name: "ansible"

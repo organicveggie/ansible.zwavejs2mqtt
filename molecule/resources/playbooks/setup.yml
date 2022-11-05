@@ -1,5 +1,5 @@
 ---
-- name: "Converge setup"
+- name: "General setup"
   hosts: "all"
   become: true
 
@@ -26,13 +26,9 @@
     - "geerlingguy.pip"
     - "geerlingguy.docker"
 
-- name: "Converge execution"
+- name: "Setup socat virtual serial port tool"
   hosts: "all"
   become: true
-
-  vars:
-    zwavejsgui_docker_network_create: true
-    zwavejsgui_docker_device: "/dev/ttyVSP1"
 
   pre_tasks:
     - name: Install socat
@@ -51,6 +47,3 @@
         name: socat-vsp
         state: started
         daemon_reload: true
-
-  roles:
-    - "organicveggie.zwavejsgui"

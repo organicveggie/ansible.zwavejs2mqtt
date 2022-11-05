@@ -1,0 +1,14 @@
+---
+- name: "Run common setup plays"
+  import_playbook: "../resources/playbooks/setup.yml"
+
+- name: "Converge execution"
+  hosts: "all"
+  become: true
+
+  vars:
+    zwavejsgui_docker_network_create: true
+    zwavejsgui_docker_device: "/dev/ttyVSP1"
+
+  roles:
+    - "organicveggie.zwavejsgui"

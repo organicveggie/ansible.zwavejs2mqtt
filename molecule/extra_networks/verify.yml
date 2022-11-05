@@ -1,0 +1,46 @@
+---
+- name: "Verify"
+  hosts: "all"
+  gather_facts: false
+  become: true
+
+  vars:
+    zwavejsgui_docker_name: "zwave-js-ui"
+    zwavejsgui_docker_volume_name: "zwavejsui"
+    zwavejsgui_docker_network: "zwave-js-ui"
+
+  tasks:
+    - name: "Get info on volume"
+      community.docker.docker_volume_info:
+        name: "{{ zwavejsgui_docker_volume_name }}"
+      register: "_volume_info_data"
+
+    - name: "Verify volume exists"
+      ansible.builtin.assert:
+        that: "_volume_info_data.exists"
+
+    - name: "Get info on default network"
+      community.docker.docker_network_info:
+        name: "{{ zwavejsgui_docker_network }}"
+      register: "_network_info"
+
+    - name: "Verify default network exists"
+      ansible.builtin.assert:
+        that: "_network_info.exists"
+
+    - name: "Get info on container: {{ zwavejsgui_docker_name }}"
+      community.docker.docker_container_info:
+        name: "{{ zwavejsgui_docker_name }}"
+      register: "container_info"
+
+    - name: "Verify container exists and is running: {{ zwavejsgui_docker_name }}"
+      ansible.builtin.assert:
+        that:
+          - "container_info.exists"
+          - "container_info.container['State']['Running']"
+
+    - name: "Verify container is attached to both networks"
+      ansible.builtin.assert:
+        that:
+          - "container_info.container['NetworkSettings']['Networks']['zwave-js-ui']"
+          - "container_info.container['NetworkSettings']['Networks']['zwavejsui-extra-01']"

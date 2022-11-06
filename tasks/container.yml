@@ -74,6 +74,10 @@
       value: "{{ zwavejsui_docker_ws_port }}"
   when: "zwavejsui_docker_available_externally"
 
+- name: "Print ZWave device"
+  ansible.builtin.debug:
+    msg: "ZWave device: {{ zwavejsui_docker_device }}"
+
 - name: "Create zwave-js-ui Docker container"
   community.docker.docker_container:
     name: "{{ zwavejsui_docker_name }}"

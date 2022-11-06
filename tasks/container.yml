@@ -1,94 +1,94 @@
 ---
 - name: "Set Docker volume list for bind mounts"
   ansible.builtin.set_fact:
-    _zwavejsgui_docker_mount_list:
-      - source: "{{ zwavejsgui_docker_data_dir }}"
+    _zwavejsui_docker_mount_list:
+      - source: "{{ zwavejsui_docker_data_dir }}"
         target: "/usr/src/app/store"
         type: "bind"
-  when: "not zwavejsgui_docker_use_volumes"
+  when: "not zwavejsui_docker_use_volumes"
 
 - name: "Set Docker mount list for volume mounts"
   ansible.builtin.set_fact:
-    _zwavejsgui_docker_mount_list:
-      - source: "{{ zwavejsgui_docker_volume_name }}"
+    _zwavejsui_docker_mount_list:
+      - source: "{{ zwavejsui_docker_volume_name }}"
         target: "/usr/src/app/store"
         type: "volume"
-  when: "zwavejsgui_docker_use_volumes"
+  when: "zwavejsui_docker_use_volumes"
 
 - name: "Convert created network into array of dictionary"
   ansible.builtin.set_fact:
-    _zwavejsgui_docker_created_networks:
-      - name: "{{ zwavejsgui_docker_network }}"
-        ipv4_address: "{{ _zwavejsgui_docker_network_ipv4 | default(omit) }}"
-        ipv6_address: "{{ _zwavejsgui_docker_network_ipv6 | default(omit) }}"
-        aliases: "{{ _zwavejsgui_docker_network_aliases | default(omit) }}"
-  when: "zwavejsgui_docker_network_create"
+    _zwavejsui_docker_created_networks:
+      - name: "{{ zwavejsui_docker_network }}"
+        ipv4_address: "{{ _zwavejsui_docker_network_ipv4 | default(omit) }}"
+        ipv6_address: "{{ _zwavejsui_docker_network_ipv6 | default(omit) }}"
+        aliases: "{{ _zwavejsui_docker_network_aliases | default(omit) }}"
+  when: "zwavejsui_docker_network_create"
 
 - name: "Create placeholder array for created network"
   ansible.builtin.set_fact:
-    _zwavejsgui_docker_created_networks: []
-  when: "not zwavejsgui_docker_network_create"
+    _zwavejsui_docker_created_networks: []
+  when: "not zwavejsui_docker_network_create"
 
 - name: "Define all Docker networks for this container"
   ansible.builtin.set_fact:
-    _zwavejsgui_docker_all_networks: >
-      {{ _zwavejsgui_docker_created_networks + zwavejsgui_docker_extra_networks }}
+    _zwavejsui_docker_all_networks: >
+      {{ _zwavejsui_docker_created_networks + zwavejsui_docker_extra_networks }}
 
 - name: "Build container FQDN"
   ansible.builtin.set_fact:
-    _zwavejsgui_fqdn: "{{ zwavejsgui_docker_hostname }}.{{ zwavejsgui_docker_host_domain }}"
+    _zwavejsui_fqdn: "{{ zwavejsui_docker_hostname }}.{{ zwavejsui_docker_host_domain }}"
 
 - name: "Define Docker labels with Traefik disabled"
   ansible.builtin.set_fact:
-    zwwavejsgui_docker_labels: "{{ zwwavejsgui_docker_labels | default({}) |
+    zwavejsui_docker_labels: "{{ zwavejsui_docker_labels | default({}) |
       combine({item.key: item.value}) }}"
   with_items:
     - key: "traefik.enable"
-      value: "{{ zwavejsgui_docker_available_externally }}"
-  when: "not zwavejsgui_docker_available_externally"
+      value: "{{ zwavejsui_docker_available_externally }}"
+  when: "not zwavejsui_docker_available_externally"
 
 - name: "Define Docker labels with Traefik enabled"
   ansible.builtin.set_fact:
-    zwwavejsgui_docker_labels: "{{ zwwavejsgui_docker_labels | default({}) |
+    zwavejsui_docker_labels: "{{ zwavejsui_docker_labels | default({}) |
       combine({item.key: item.value}) }}"
   with_items:
     - key: "traefik.enable"
-      value: "{{ zwavejsgui_docker_available_externally }}"
-    - key: "traefik.http.routers.zwavejsgui.rule"
-      value: "Host(`{{ _zwavejsgui_fqdn }}`)"
-    - key: "traefik.http.routers.zwavejsgui.entrypoints"
+      value: "{{ zwavejsui_docker_available_externally }}"
+    - key: "traefik.http.routers.zwavejsui.rule"
+      value: "Host(`{{ _zwavejsui_fqdn }}`)"
+    - key: "traefik.http.routers.zwavejsui.entrypoints"
       value: "http,https"
-    - key: "traefik.http.routers.zwavejsgui.tls.certresolver"
+    - key: "traefik.http.routers.zwavejsui.tls.certresolver"
       value: "letsencrypt"
-    - key: "traefik.http.routers.zwavejsgui.tls.domains[0].main"
-      value: "*.{{ zwavejsgui_docker_host_domain }}"
-    - key: "traefik.http.services.zwavejsgui.loadbalancer.server.port"
-      value: "{{ zwavejsgui_docker_web_port }}"
-    - key: "traefik.tcp.routers.zwavejsgui.entrypoints"
-      value: "zwavejsgui"
-    - key: "traefik.tcp.routers.zwavejsgui.rule"
+    - key: "traefik.http.routers.zwavejsui.tls.domains[0].main"
+      value: "*.{{ zwavejsui_docker_host_domain }}"
+    - key: "traefik.http.services.zwavejsui.loadbalancer.server.port"
+      value: "{{ zwavejsui_docker_web_port }}"
+    - key: "traefik.tcp.routers.zwavejsui.entrypoints"
+      value: "zwavejsui"
+    - key: "traefik.tcp.routers.zwavejsui.rule"
       value: "HostSNI(`*`)"
-    - key: "traefik.tcp.routers.zwavejsgui.service"
-      value: "zwavejsgui"
-    - key: "traefik.tcp.services.zwavejsgui.loadbalancer.server.port"
-      value: "{{ zwavejsgui_docker_ws_port }}"
-  when: "zwavejsgui_docker_available_externally"
+    - key: "traefik.tcp.routers.zwavejsui.service"
+      value: "zwavejsui"
+    - key: "traefik.tcp.services.zwavejsui.loadbalancer.server.port"
+      value: "{{ zwavejsui_docker_ws_port }}"
+  when: "zwavejsui_docker_available_externally"
 
 - name: "Create zwave-js-ui Docker container"
   community.docker.docker_container:
-    name: "{{ zwavejsgui_docker_name }}"
-    image: "{{ zwavejsgui_docker_image_name }}:{{ zwavejsgui_docker_image_version }}"
+    name: "{{ zwavejsui_docker_name }}"
+    image: "{{ zwavejsui_docker_image_name }}:{{ zwavejsui_docker_image_version }}"
     pull: true
-    mounts: "{{ _zwavejsgui_docker_mount_list }}"
+    mounts: "{{ _zwavejsui_docker_mount_list }}"
     env:
-      TZ: "{{ zwavejsgui_docker_timezone }}"
-    network_mode: "{{ zwavejsgui_docker_network }}"
-    networks: "{{ _zwavejsgui_docker_all_networks }}"
+      TZ: "{{ zwavejsui_docker_timezone }}"
+    network_mode: "{{ zwavejsui_docker_network }}"
+    networks: "{{ _zwavejsui_docker_all_networks }}"
     restart_policy: unless-stopped
-    memory: "{{ zwavejsgui_docker_memory }}"
-    cpus: "{{ zwavejsgui_docker_cpus }}"
+    memory: "{{ zwavejsui_docker_memory }}"
+    cpus: "{{ zwavejsui_docker_cpus }}"
     devices:
-      - "{{ zwavejsgui_docker_device }}:/dev/ttyACM0"
+      - "{{ zwavejsui_docker_device }}:/dev/ttyACM0"
     container_default_behavior: no_defaults
     auto_remove: no
     detach: yes
@@ -98,4 +98,4 @@
     privileged: no
     read_only: no
     tty: no
-    labels: "{{ zwwavejsgui_docker_labels }}"
+    labels: "{{ zwavejsui_docker_labels }}"

@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: "zwavejsgui"
+  role_name: "zwavejsui"
   author: "organicveggie"
-  description: "Role to install zwavejsgui Docker container on Linux."
+  description: "Role to install zwave-js-ui Docker container on Linux."
 
   license: "license GPL-3.0-only"
 
@@ -26,7 +26,7 @@ galaxy_info:
         - "focal"
         - "jammy"
   galaxy_tags:
-    - "zwavejsgui"
+    - "zwavejsui"
     - "zwavejs2mqtt"
     - "zwave"
     - "zwavejs"

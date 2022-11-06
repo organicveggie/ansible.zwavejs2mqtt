@@ -23,10 +23,10 @@
   become: true
 
   vars:
-    zwavejsgui_docker_network_create: true
-    zwavejsgui_docker_device: "/dev/ttyVSP1"
-    zwavejsgui_docker_extra_networks:
+    zwavejsui_docker_network_create: true
+    zwavejsui_docker_device: "/dev/ttyVSP1"
+    zwavejsui_docker_extra_networks:
       - name: "zwavejsui-extra-01"
 
   roles:
-    - "organicveggie.zwavejsgui"
+    - "organicveggie.zwavejsui"

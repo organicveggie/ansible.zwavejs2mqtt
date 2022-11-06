@@ -1,19 +1,19 @@
 ---
 argument_specs:
   main:
-    short_description: "Install zwavejsgui on Docker."
+    short_description: "Install zwave-js-ui on Docker."
     description:
       - "The main entry point does everything."
 
     options:
-      zwavejsgui_docker_timezone:
+      zwavejsui_docker_timezone:
         type: "str"
         default: "America/New_York"
         description: |
           Timezone code for the container. Timezone codes can be found at:
           https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 
-      zwavejsgui_docker_device:
+      zwavejsui_docker_device:
         type: "str"
         default: "/dev/serial/by-id/usb-1234_5678-ge11"
         description: |
@@ -26,71 +26,71 @@ argument_specs:
             $ ls -al /dev/serial/by-id/
             lrwxrwxrwx 1 root root 13 Sep  6 18:57 usb-1234_5678-ge11 -> ../../ttyACM0
 
-      zwavejsgui_docker_name:
+      zwavejsui_docker_name:
         type: "str"
         default: "zwave-js-ui"
         description: "Name of the Docker container."
 
-      zwavejsgui_docker_image_name:
+      zwavejsui_docker_image_name:
         type: "str"
         default: "zwavejs/zwave-js-ui"
         description: "Base name of the Docker image to use for the container."
 
-      zwavejsgui_docker_image_version:
+      zwavejsui_docker_image_version:
         type: "str"
         default: "latest"
         description: "Specific Docker image version to use for the container."
 
-      zwavejsgui_docker_web_port:
+      zwavejsui_docker_web_port:
         type: "str"
         default: "8091"
         description: "TCP port number to expose to handle HTTP traffic."
 
-      zwavejsgui_docker_ws_port:
+      zwavejsui_docker_ws_port:
         type: "str"
         default: "3000"
         description: "TCP port number to expose for MQTT traffic."
 
-      zwavejsgui_docker_cpus:
+      zwavejsui_docker_cpus:
         type: "str"
         default: "1"
         description: "Number of vCPUs to allocate to the container."
 
-      zwavejsgui_docker_memory:
+      zwavejsui_docker_memory:
         type: "str"
         default: "512M"
         description: "Amount of memory to allocate to the container."
 
-      zwavejsgui_docker_use_volumes:
+      zwavejsui_docker_use_volumes:
         type: "bool"
         default: true
         description: |
           Create and use Docker volumes for storing data. True creates volumes and attaches them to
           the container. False creates folders and bind mounts them to the container.
 
-      zwavejsgui_docker_volume_name:
+      zwavejsui_docker_volume_name:
         type: "str"
-        default: "zwavejsqui"
+        default: "zwavejsui"
         description: |
           Name of the Docker volume to create to store data files. Only used when
-          [zwavejsgui_docker_use_volumes] is true.
+          [zwavejsui_docker_use_volumes] is true.
 
-      zwavejsgui_docker_data_dir:
+      zwavejsui_docker_data_dir:
         type: "str"
-        default: "/var/lib/zwavejsqui"
+        default: "/var/lib/zwavejsui"
         description: |
           Directory on filesystem to use for storing data files. Only used when
-          [zwavejsgui_docker_use_volumes] is false.
+          [zwavejsui_docker_use_volumes] is false.
 
-      zwavejsgui_docker_network:
+      zwavejsui_docker_network:
         type: "str"
         default: "zwave-js-ui"
         description: |
           Name of the default Docker network for the container. The container will *always* attach
-          to this network. If [zwavejsgui_docker_network_create] is true, this is also the name of
+          to this network. If [zwavejsui_docker_network_create] is true, this is also the name of
           the network which will be created.
 
-      zwavejsgui_docker_extra_networks:
+      zwavejsui_docker_extra_networks:
         type: list
         elements: "dict"
         default: []
@@ -99,7 +99,7 @@ argument_specs:
           dictionaries like
           https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html#parameter-networks.
 
-      zwavejsgui_docker_network_aliases:
+      zwavejsui_docker_network_aliases:
         type: list
         elements: "str"
         default: []
@@ -107,41 +107,41 @@ argument_specs:
           List of aliases for this container in the default network. These names can be used in the
           default network to reach this container.
 
-      zwavejsgui_docker_network_ipv4:
+      zwavejsui_docker_network_ipv4:
         type: "str"
         default: null
         description: "The container’s IPv4 address in the default network. Defaults to using DHCP."
 
-      zwavejsgui_docker_network_ipv6:
+      zwavejsui_docker_network_ipv6:
         type: "str"
         default: null
         description: |
           The container’s IPv6 address in the default network. Defaults to using DHCP. Only applies
           if IPv6 is enabled in the default network.
 
-      zwavejsgui_docker_network_create:
+      zwavejsui_docker_network_create:
         type: "bool"
         default: false
         description: |
           Create the default Docker network. True creates network and attaches the container to it.
           False does not create the network.
 
-      zwavejsgui_docker_available_externally:
+      zwavejsui_docker_available_externally:
         type: "bool"
         default: true
         description: "Enable use of Traefik as a proxy."
 
-      zwavejsgui_docker_hostname:
+      zwavejsui_docker_hostname:
         type: "str"
-        default: "zwavejgui"
+        default: "zwavejui"
         description: |
-          Host name to use for the Traefik endpoint. Combined with [zwavejsgui_docker_host_domain]
+          Host name to use for the Traefik endpoint. Combined with [zwavejsui_docker_host_domain]
           to form the FQDN for the endpoint.
 
-      zwavejsgui_docker_host_domain:
+      zwavejsui_docker_host_domain:
         type: "str"
         default: "example.com"
         description: |
-          Domain name to use for the Traefik endpoint. Combined with [zwavejsgui_docker_hostname]
+          Domain name to use for the Traefik endpoint. Combined with [zwavejsui_docker_hostname]
           to form the FQDN for the endpoint. Also used by Traefik to create the necessary Let's
           Encrypt certificate.

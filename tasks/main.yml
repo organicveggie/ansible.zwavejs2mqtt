@@ -2,21 +2,21 @@
 - name: "Run general setup"
   ansible.builtin.import_tasks: "setup.yml"
   tags:
-    - "zwavejsgui"
-    - "zwave-js-gui"
-    - "zwavejsgui:setup"
+    - "zwavejsui"
+    - "zwave-js-ui"
+    - "zwavejsui:setup"
 
 - name: "Run network setup"
   ansible.builtin.import_tasks: "network.yml"
   tags:
-    - "zwavejsgui"
-    - "zwave-js-gui"
-    - "zwavejsgui:network"
-  when: "zwavejsgui_docker_network_create"
+    - "zwavejsui"
+    - "zwave-js-ui"
+    - "zwavejsui:network"
+  when: "zwavejsui_docker_network_create"
 
 - name: "Create container"
   ansible.builtin.import_tasks: "container.yml"
   tags:
-    - "zwavejsgui"
-    - "zwave-js-gui"
-    - "zwavejsgui:docker"
+    - "zwavejsui"
+    - "zwave-js-ui"
+    - "zwavejsui:docker"

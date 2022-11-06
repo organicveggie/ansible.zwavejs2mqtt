@@ -1,12 +1,12 @@
 ---
 - name: "Create zwave-js-ui data directory"
   ansible.builtin.file:
-    name: "{{ zwavejsgui_docker_data_dir }}"
+    name: "{{ zwavejsui_docker_data_dir }}"
     state: "directory"
     mode: "0770"
-  when: "not zwavejsgui_docker_use_volumes"
+  when: "not zwavejsui_docker_use_volumes"
 
 - name: "Create zwave-js-ui Docker volume"
   community.docker.docker_volume:
-    name: "{{ zwavejsgui_docker_volume_name }}"
-  when: "zwavejsgui_docker_use_volumes"
+    name: "{{ zwavejsui_docker_volume_name }}"
+  when: "zwavejsui_docker_use_volumes"

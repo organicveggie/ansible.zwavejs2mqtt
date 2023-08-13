@@ -92,7 +92,18 @@
     memory: "{{ zwavejsui_docker_memory }}"
     cpus: "{{ zwavejsui_docker_cpus }}"
     devices:
-      - "{{ zwavejsui_docker_device }}:/dev/ttyACM0"
+      - "{{ zwavejsui_docker_device }}:/dev/zwave"
+    healthcheck:
+      interval: "{{ zwavejsui_docker_healthcheck_interval }}"
+      timeout: "{{ zwavejsui_docker_healthcheck_timeout }}"
+      start_period: "{{ zwavejsui_docker_healthcheck_start_period }}"
+      retries: "{{ zwavejsui_docker_healthcheck_retries }}"
+      test: > 
+        wget --no-verbose --spider --no-check-certificate --header "Accept: text/plain" 
+        http://localhost:{{ zwavejsui_docker_web_port }}/health || exit 1
+    ports:
+      - "{{ zwavejsui_docker_web_port }}:8091"
+      - "{{ zwavejsui_docker_ws_port }}:3000"
     container_default_behavior: no_defaults
     auto_remove: no
     detach: yes

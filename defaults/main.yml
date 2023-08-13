@@ -43,6 +43,11 @@ zwavejsui_docker_cpus: "1"
 # Amount of memory to allocate to the container.
 zwavejsui_docker_memory: "512M"
 
+zwavejsui_docker_healthcheck_interval: "1m"
+zwavejsui_docker_healthcheck_timeout: "10s"
+zwavejsui_docker_healthcheck_start_period: "30s"
+zwavejsui_docker_healthcheck_retries: 3
+
 #####
 # Docker volumes and folders
 #####

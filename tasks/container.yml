@@ -98,8 +98,8 @@
       timeout: "{{ zwavejsui_docker_healthcheck_timeout }}"
       start_period: "{{ zwavejsui_docker_healthcheck_start_period }}"
       retries: "{{ zwavejsui_docker_healthcheck_retries }}"
-      test: > 
-        wget --no-verbose --spider --no-check-certificate --header "Accept: text/plain" 
+      test: >
+        wget --no-verbose --spider --no-check-certificate --header "Accept: text/plain"
         http://localhost:{{ zwavejsui_docker_web_port }}/health || exit 1
     ports:
       - "{{ zwavejsui_docker_web_port }}:8091"

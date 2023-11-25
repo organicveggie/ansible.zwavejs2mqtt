@@ -125,7 +125,7 @@ zwavejsui_docker_available_externally: "true"
 
 # Host name to use for the Traefik endpoint. Combined with [zwavejsui_docker_host_domain] to form
 # the FQDN for the endpoint.
-zwavejsui_docker_hostname: "zwavejui"
+zwavejsui_docker_hostname: "zwavejsui"
 
 # Domain name to use for the Traefik endpoint. Combined with [zwavejsui_docker_hostname] to form
 # the FQDN for the endpoint. Also used by Traefik to create the necessary Let's Encrypt certificate.
